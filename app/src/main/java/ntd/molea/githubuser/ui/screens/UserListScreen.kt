@@ -1,58 +1,104 @@
 package ntd.molea.githubuser.ui.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ntd.molea.githubuser.data.model.User
 import ntd.molea.githubuser.ui.components.UserItem
-import ntd.molea.githubuser.ui.theme.GitHubUserTheme
-import ntd.molea.githubuser.ui.users.GithubUser
-import ntd.molea.githubuser.ui.users.GithubUserList
+import ntd.molea.githubuser.ui.users.UsersViewModel
 import ntd.molea.githubuser.utils.Vlog
+import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserListScreen(
-    users: List<User>,
-    isLoading: Boolean = false,
-    onLoadMore: () -> Unit = {},
+    onBackClick: () -> Unit = {},
     onUserClick: (User) -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: UsersViewModel = koinViewModel()
 ) {
-    val listState = rememberLazyListState()
-    val shouldLoadMore by remember {
-        derivedStateOf {
-            val layoutInfo = listState.layoutInfo
-            val totalItemsNumber = layoutInfo.totalItemsCount
-            val lastVisibleItemIndex = (layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0)
-            // Load more when we're within 5 items of the bottom
-            lastVisibleItemIndex > (totalItemsNumber - 5) && totalItemsNumber > 0
-        }
-    }
+    val users by viewModel.users.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
-    LaunchedEffect(shouldLoadMore, isLoading) {
-        Vlog.d("UsersView", "loadMore shouldLoadMore:$shouldLoadMore isLoading:$isLoading")
-        if (shouldLoadMore && !isLoading) {
-            onLoadMore()
-        }
-    }
-
-    Box(
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = { onBackClick() }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                title = {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            "Github Users",
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { viewModel.refreshUsers() }) {
+                        Icon(Icons.Default.Refresh, contentDescription = "Refresh")
+                    }
+                }
+            )
+        },
         modifier = modifier
-    ) {
+    ) { paddingValues ->
+        val listState = rememberLazyListState()
+        val shouldLoadMore by remember {
+            derivedStateOf {
+                val layoutInfo = listState.layoutInfo
+                val totalItemsNumber = layoutInfo.totalItemsCount
+                val lastVisibleItemIndex = (layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0)
+                lastVisibleItemIndex > (totalItemsNumber - 5) && totalItemsNumber > 0
+            }
+        }
+
+        LaunchedEffect(shouldLoadMore, isLoading) {
+            Vlog.d("UsersView", "loadMore shouldLoadMore:$shouldLoadMore isLoading:$isLoading")
+            if (shouldLoadMore && !isLoading) {
+                viewModel.loadMore()
+            }
+        }
+
         LazyColumn(
             state = listState,
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
             items(users) { user ->
                 UserItem(
@@ -74,46 +120,5 @@ fun UserListScreen(
                 }
             }
         }
-
-
     }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    val sampleUsers = listOf(
-        User(
-            "a",
-            1,
-            "https://avatars.githubusercontent.com/u/101?v=4",
-            "https://www.linkedin.com/"
-        ),
-        User(
-            "g",
-            1,
-            "https://avatars.githubusercontent.com/u/101?v=4",
-            "https://www.linkedin.com/"
-        ),
-        User(
-            "h",
-            1,
-            "https://avatars.githubusercontent.com/u/101?v=4",
-            "https://www.linkedin.com/"
-        ),
-        User(
-            "s",
-            1,
-            "https://avatars.githubusercontent.com/u/101?v=4",
-            "https://www.linkedin.com/"
-        ),
-        User(
-            "f",
-            1,
-            "https://avatars.githubusercontent.com/u/101?v=4",
-            "https://www.linkedin.com/"
-        ),
-    )
-    UserListScreen(users = sampleUsers)
 }
