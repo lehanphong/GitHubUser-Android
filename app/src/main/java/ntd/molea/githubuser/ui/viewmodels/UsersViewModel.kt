@@ -1,14 +1,10 @@
-package ntd.molea.githubuser.ui.users
+package ntd.molea.githubuser.ui.viewmodels
 
-import androidx.compose.ui.input.key.type
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ntd.molea.githubuser.data.model.User
 import ntd.molea.githubuser.data.repository.UserRepository

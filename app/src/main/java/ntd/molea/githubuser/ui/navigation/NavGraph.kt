@@ -10,11 +10,13 @@ import ntd.molea.githubuser.data.model.User
 import ntd.molea.githubuser.ui.screens.UserDetailScreen
 import ntd.molea.githubuser.ui.screens.UserListScreen
 import ntd.molea.githubuser.ui.theme.GitHubUserTheme
+import ntd.molea.githubuser.ui.viewmodels.UserDetailViewModel
+import org.koin.androidx.compose.koinViewModel
 
 sealed class Screen(val route: String) {
     object UserList : Screen("users")
-    object UserDetail : Screen("user/{userId}") {
-        fun createRoute(userId: String) = "user/$userId"
+    object UserDetail : Screen("user/{login}") {
+        fun createRoute(login: String) = "user/$login"
     }
 }
 
@@ -43,21 +45,14 @@ fun NavGraph(
             composable(
                 route = Screen.UserDetail.route,
                 arguments = listOf(
-                    navArgument("userId") {
+                    navArgument("login") {
                         type = NavType.StringType
                     }
                 )
             ) { backStackEntry ->
-                val userId = backStackEntry.arguments?.getString("userId") ?: return@composable
-                // In a real app, you would fetch user details here using userId
-                val dummyUser = User(
-                    login = userId,
-                    id = 1,
-                    avatarUrl = "https://avatars.githubusercontent.com/u/101?v=4",
-                    htmlUrl = "https://github.com/$userId"
-                )
+                val login = backStackEntry.arguments?.getString("login") ?: return@composable
                 UserDetailScreen(
-                    user = dummyUser,
+                    login = login,
                     onBackClick = { navController.navigateUp() }
                 )
             }

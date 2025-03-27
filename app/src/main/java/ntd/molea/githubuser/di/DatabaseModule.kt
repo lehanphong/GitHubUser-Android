@@ -1,7 +1,6 @@
 package ntd.molea.githubuser.di
 
 import ntd.molea.githubuser.data.local.GitHubUserDatabase
-import ntd.molea.githubuser.data.local.GitHubUserDao
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

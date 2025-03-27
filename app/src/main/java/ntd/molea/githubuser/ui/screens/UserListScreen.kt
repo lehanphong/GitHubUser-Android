@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,7 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ntd.molea.githubuser.data.model.User
 import ntd.molea.githubuser.ui.components.UserItem
-import ntd.molea.githubuser.ui.users.UsersViewModel
+import ntd.molea.githubuser.ui.viewmodels.UsersViewModel
 import ntd.molea.githubuser.utils.Vlog
 import org.koin.androidx.compose.koinViewModel
 

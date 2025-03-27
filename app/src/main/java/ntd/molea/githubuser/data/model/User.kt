@@ -11,4 +11,10 @@ data class User(
     val avatarUrl: String,
     @SerializedName("html_url")
     val htmlUrl: String,
+    @SerializedName("location")
+    val location: String? = null,
+    @SerializedName("followers")
+    val followers: Int? = null,
+    @SerializedName("following")
+    val following: Int? = null
 )

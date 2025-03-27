@@ -53,7 +53,7 @@ fun UserItem(
                     .crossfade(true)
                     .build(),
                 contentDescription = "User Avatar",
-                contentScale = ContentScale.Inside,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(96.dp)
                     .clip(RoundedCornerShape(8.dp))

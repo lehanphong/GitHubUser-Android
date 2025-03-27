@@ -6,12 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [GitHubUserEntity::class],
+    entities = [UserEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class GitHubUserDatabase : RoomDatabase() {
-    abstract fun githubUserDao(): GitHubUserDao
+    abstract fun githubUserDao(): UserDao
 
     companion object {
         fun create(context: Context): GitHubUserDatabase {
