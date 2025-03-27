@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "ntd.molea.githubuser"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ntd.molea.githubuser"
@@ -56,4 +56,20 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Koin
+    implementation("io.insert-koin:koin-android:4.0.2")
+    implementation("io.insert-koin:koin-androidx-compose:4.0.2")
+    implementation("io.insert-koin:koin-androidx-compose-navigation:4.0.2")
+    testImplementation("io.insert-koin:koin-test:4.0.2")
+    testImplementation("io.insert-koin:koin-test-junit4:4.0.2")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.google.code.gson:gson:2.11.0")
+    
+    // OkHttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }
