@@ -16,13 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            GitHubUserTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    UsersView(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            UsersView()
         }
     }
 }

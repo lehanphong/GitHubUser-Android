@@ -31,19 +31,29 @@ class UsersViewModel(
         fetchUsers()
     }
 
-    fun fetchUsers() {
+    private fun fetchUsers() {
         viewModelScope.launch {
             try {
                 _isLoading.value = true
                 Vlog.d("DUCCHECK", "currentPage:$currentPage")
-
-//                fake data for testing
-//                val gson = Gson()
-//                val userListType = object : TypeToken<List<User>>() {}.type
-//                val user1: List<User> = gson.fromJson(FakeData.json1, userListType)
-//                _users.value = _users.value + user1
-
                 val result = repository.getUsers(currentPage * perPage, perPage)
+                _users.value += result
+                currentPage++
+            } catch (e: Exception) {
+                Vlog.e(e)
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun refreshUsers() {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                currentPage = 0
+                _users.value = arrayListOf()
+                val result = repository.refreshUsers(currentPage * perPage, perPage)
                 _users.value += result
                 currentPage++
             } catch (e: Exception) {

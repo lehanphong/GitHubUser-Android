@@ -7,8 +7,8 @@ data class User(
     val login: String,
     @SerializedName("id")
     val id: Int,
-    @SerializedName("node_id")
+    @SerializedName("avatar_url")
     val avatarUrl: String,
-    @SerializedName("gravatar_id")
+    @SerializedName("html_url")
     val htmlUrl: String,
 )
