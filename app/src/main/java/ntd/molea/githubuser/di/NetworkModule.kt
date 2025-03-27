@@ -1,7 +1,9 @@
 package ntd.molea.githubuser.di
 
+import kotlinx.coroutines.Dispatchers
 import ntd.molea.githubuser.data.api.GitHubApi
 import ntd.molea.githubuser.data.api.GitHubInterceptor
+import ntd.molea.githubuser.data.local.GitHubUserDao
 import ntd.molea.githubuser.data.repository.UserRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -59,6 +61,6 @@ val networkModule = module {
     }
 
     single {
-        UserRepository(get<GitHubApi>())
+        UserRepository(Dispatchers.IO, get<GitHubApi>(), get<GitHubUserDao>())
     }
 } 

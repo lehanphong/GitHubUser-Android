@@ -43,7 +43,7 @@ class UsersViewModel(
 //                val user1: List<User> = gson.fromJson(FakeData.json1, userListType)
 //                _users.value = _users.value + user1
 
-                val result = repository.getUsers(perPage, currentPage * perPage)
+                val result = repository.getUsers(currentPage * perPage, perPage)
                 _users.value += result
                 currentPage++
             } catch (e: Exception) {
