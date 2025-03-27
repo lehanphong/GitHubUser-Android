@@ -5,6 +5,7 @@ import ntd.molea.githubuser.data.api.GitHubApi
 import ntd.molea.githubuser.data.api.GitHubInterceptor
 import ntd.molea.githubuser.data.local.UserDao
 import ntd.molea.githubuser.data.repository.UserRepository
+import ntd.molea.githubuser.data.repository.UserRepositoryImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
@@ -60,7 +61,7 @@ val networkModule = module {
         get<Retrofit>(qualifier = named(RetrofitInstance.GitHub.javaClass.name)).create(GitHubApi::class.java)
     }
 
-    single {
-        UserRepository(Dispatchers.IO, get<GitHubApi>(), get<UserDao>())
+    single<UserRepository> {
+        UserRepositoryImpl(Dispatchers.IO, get<GitHubApi>(), get<UserDao>())
     }
 } 

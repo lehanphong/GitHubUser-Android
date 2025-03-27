@@ -1,25 +1,17 @@
 package ntd.molea.githubuser.utils
 
-import android.util.Log
-
 object Vlog {
-    val isShowLog = true
+    private var logger: Logger = AndroidLogger()
 
-    fun d(tag: String, log: String) {
-        if (isShowLog) {
-            Log.d(tag, log)
-        }
+    fun setLogger(newLogger: Logger) {
+        logger = newLogger
     }
 
-    fun e(e: Throwable, mess: String = "") {
-        if (isShowLog) {
-            Log.e("ERROR", "mess: $mess", e)
-        }
+    fun d(tag: String, message: String) {
+        logger.d(tag, message)
     }
 
-    fun i(tag: String, log: String) {
-        if (isShowLog) {
-            Log.i(tag, log)
-        }
+    fun e(throwable: Throwable) {
+        logger.e(throwable)
     }
 }

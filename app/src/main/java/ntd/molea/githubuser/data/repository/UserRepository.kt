@@ -9,16 +9,21 @@ import ntd.molea.githubuser.data.model.User
 import ntd.molea.githubuser.utils.Vlog
 import java.util.UUID
 
-class UserRepository(
+interface UserRepository {
+    suspend fun getUsers(since: Int = 0, perPage: Int = 20): List<User>
+    suspend fun refreshUsers(since: Int = 0, perPage: Int = 20): List<User>
+    suspend fun getUserDetails(loginUsername: String): User
+}
+
+class UserRepositoryImpl(
     private val ioDispatcher: CoroutineDispatcher,
     private val api: GitHubApi,
     private val dao: UserDao
-) {
-    suspend fun getUsers(since: Int = 0, perPage: Int = 20): List<User> {
+) : UserRepository {
+    override suspend fun getUsers(since: Int, perPage: Int): List<User> {
         return withContext(ioDispatcher) {
             // Get data from cache
             val cachedUsers = dao.getUsersWithPagination(perPage, since)
-            Vlog.d("DUCCHECK", "cachedUsers size: ${cachedUsers.size} since:$since")
 
             // try to fetch more from API
             if (cachedUsers.isEmpty()) {
@@ -40,7 +45,7 @@ class UserRepository(
         }
     }
 
-    suspend fun refreshUsers(since: Int = 0, perPage: Int = 20): List<User> {
+    override suspend fun refreshUsers(since: Int, perPage: Int): List<User> {
         return withContext(ioDispatcher) {
             dao.deleteAllUsers() //clear cache
             val users = api.getUsers(perPage, since)
@@ -57,7 +62,7 @@ class UserRepository(
         }
     }
 
-    suspend fun getUserDetails(loginUsername: String): User {
+    override suspend fun getUserDetails(loginUsername: String): User {
         return withContext(ioDispatcher) {
             // Check if user is in cache
             val cachedUser = dao.getUserByLogin(loginUsername)
