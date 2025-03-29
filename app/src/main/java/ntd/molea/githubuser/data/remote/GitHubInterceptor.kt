@@ -1,4 +1,4 @@
-package ntd.molea.githubuser.data.api
+package ntd.molea.githubuser.data.remote
 
 import okhttp3.Interceptor
 import okhttp3.Response

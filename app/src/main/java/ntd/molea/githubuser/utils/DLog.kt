@@ -1,6 +1,6 @@
 package ntd.molea.githubuser.utils
 
-object Vlog {
+object DLog {
     private var logger: Logger = AndroidLogger()
 
     fun setLogger(newLogger: Logger) {

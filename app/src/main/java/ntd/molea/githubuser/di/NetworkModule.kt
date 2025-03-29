@@ -1,8 +1,8 @@
 package ntd.molea.githubuser.di
 
 import kotlinx.coroutines.Dispatchers
-import ntd.molea.githubuser.data.api.GitHubApi
-import ntd.molea.githubuser.data.api.GitHubInterceptor
+import ntd.molea.githubuser.data.remote.GitHubApi
+import ntd.molea.githubuser.data.remote.GitHubInterceptor
 import ntd.molea.githubuser.data.local.UserDao
 import ntd.molea.githubuser.data.repository.UserRepository
 import ntd.molea.githubuser.data.repository.UserRepositoryImpl

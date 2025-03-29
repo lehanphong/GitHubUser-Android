@@ -1,7 +1,6 @@
 package ntd.molea.githubuser.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,7 +23,6 @@ import coil.request.ImageRequest
 import ntd.molea.githubuser.data.model.User
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import ntd.molea.githubuser.ui.screens.UserListScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

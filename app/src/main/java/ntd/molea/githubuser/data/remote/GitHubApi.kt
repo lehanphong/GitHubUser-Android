@@ -1,4 +1,4 @@
-package ntd.molea.githubuser.data.api
+package ntd.molea.githubuser.data.remote
 
 import ntd.molea.githubuser.data.model.User
 import retrofit2.http.GET

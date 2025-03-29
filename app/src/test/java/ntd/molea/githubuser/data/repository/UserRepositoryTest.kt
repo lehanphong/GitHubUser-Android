@@ -6,7 +6,7 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import ntd.molea.githubuser.data.api.GitHubApi
+import ntd.molea.githubuser.data.remote.GitHubApi
 import ntd.molea.githubuser.data.local.UserDao
 import ntd.molea.githubuser.data.local.UserEntity
 import ntd.molea.githubuser.data.model.User
@@ -22,7 +22,6 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(JUnit4::class)

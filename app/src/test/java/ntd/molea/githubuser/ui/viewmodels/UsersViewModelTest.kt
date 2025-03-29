@@ -9,8 +9,9 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import ntd.molea.githubuser.data.model.User
 import ntd.molea.githubuser.data.repository.UserRepository
+import ntd.molea.githubuser.ui.users.UsersViewModel
 import ntd.molea.githubuser.utils.MockLogger
-import ntd.molea.githubuser.utils.Vlog
+import ntd.molea.githubuser.utils.DLog
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -40,7 +41,7 @@ class UsersViewModelTest {
     fun setup() {
         MockitoAnnotations.openMocks(this)
         Dispatchers.setMain(testDispatcher)
-        Vlog.setLogger(mockLogger)
+        DLog.setLogger(mockLogger)
         viewModel = UsersViewModel(repository)
     }
 

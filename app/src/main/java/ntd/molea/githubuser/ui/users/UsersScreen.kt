@@ -1,4 +1,4 @@
-package ntd.molea.githubuser.ui.screens
+package ntd.molea.githubuser.ui.users
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,8 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ntd.molea.githubuser.data.model.User
 import ntd.molea.githubuser.ui.components.UserItem
-import ntd.molea.githubuser.ui.viewmodels.UsersViewModel
-import ntd.molea.githubuser.utils.Vlog
+import ntd.molea.githubuser.utils.DLog
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,7 +84,7 @@ fun UserListScreen(
         }
 
         LaunchedEffect(shouldLoadMore, isLoading) {
-            Vlog.d("UsersView", "loadMore shouldLoadMore:$shouldLoadMore isLoading:$isLoading")
+            DLog.d("UsersView", "loadMore shouldLoadMore:$shouldLoadMore isLoading:$isLoading")
             if (shouldLoadMore && !isLoading) {
                 viewModel.loadMore()
             }

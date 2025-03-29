@@ -6,12 +6,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import ntd.molea.githubuser.data.model.User
-import ntd.molea.githubuser.ui.screens.UserDetailScreen
-import ntd.molea.githubuser.ui.screens.UserListScreen
+import ntd.molea.githubuser.ui.userdetail.UserDetailScreen
+import ntd.molea.githubuser.ui.users.UserListScreen
 import ntd.molea.githubuser.ui.theme.GitHubUserTheme
-import ntd.molea.githubuser.ui.viewmodels.UserDetailViewModel
-import org.koin.androidx.compose.koinViewModel
 
 sealed class Screen(val route: String) {
     object UserList : Screen("users")
