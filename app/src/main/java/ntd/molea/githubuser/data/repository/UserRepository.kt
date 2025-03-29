@@ -116,18 +116,19 @@ class UserRepositoryImpl(
                 } catch (e: java.io.IOException) {
                     throw ApiException.NetworkError()
                 }
-
-                val entity = UserEntity(
-                    randomKey = cachedUser?.randomKey ?: UUID.randomUUID().toString(),
-                    id = apiUser.id,
-                    login = apiUser.login,
-                    avatarUrl = apiUser.avatarUrl,
-                    htmlUrl = apiUser.htmlUrl,
-                    location = apiUser.location,
-                    followers = apiUser.followers,
-                    following = apiUser.following
-                )
-                dao.updateUser(entity)
+                cachedUser?.let {
+                    val entity = UserEntity(
+                        randomKey = it.randomKey,
+                        id = apiUser.id,
+                        login = apiUser.login,
+                        avatarUrl = apiUser.avatarUrl,
+                        htmlUrl = apiUser.htmlUrl,
+                        location = apiUser.location,
+                        followers = apiUser.followers,
+                        following = apiUser.following
+                    )
+                    dao.updateUser(entity)
+                }
                 return@withContext apiUser
             } catch (e: Exception) {
                 DLog.e(e)
